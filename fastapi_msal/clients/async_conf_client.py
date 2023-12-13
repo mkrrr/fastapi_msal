@@ -87,6 +87,8 @@ class AsyncConfClient:
             auth_response=auth_response.model_dump(exclude_none=True),
             scopes=self.client_config.scopes,
         )
+        if "error" in auth_token:
+            raise ValueError(auth_token)
         return AuthToken.parse_obj_debug(to_parse=auth_token)
 
     async def remove_account(self, account: LocalAccount) -> None:
