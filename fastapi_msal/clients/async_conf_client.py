@@ -81,6 +81,7 @@ class AsyncConfClient:
         return AuthCode.parse_obj_debug(to_parse=auth_code)
 
     async def finalize_auth_flow(self, auth_code_flow: AuthCode, auth_response: AuthResponse) -> AuthToken:
+        print(f"XXXXXXX authcode {auth_code_flow}\n resp {auth_response}")
         auth_token: StrsDict = await self.__execute_async__(
             self._cca.acquire_token_by_auth_code_flow,
             auth_code_flow=auth_code_flow.model_dump(exclude_none=True),
